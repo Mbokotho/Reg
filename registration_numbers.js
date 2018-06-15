@@ -1,8 +1,8 @@
 var NameElement = document.querySelector('.Name');
-var addBtnElement = document.querySelector('.greetBtn');
+var addBtnElement = document.querySelector('.addBtn');
 var greetingElement = document.querySelector('.greeting');
-var regNumcounter = document.querySelector('.greetCounter');
-
+var resetBtnElement = document.querySelector('.resetBtn');
+var showBtnElement = document.querySelector('.showBtn');
 
 var Names = {};
 var Name = "";
@@ -12,7 +12,8 @@ if (localStorage.getItem("myNames")) {
 }
 
  function element(Name) {
-   var list = document.createElement("span");
+   var list = document.createElement("ul");
+   list.classList.add("stylelist");
    list.textContent = Name;
     greetingElement.appendChild(list);
 
@@ -24,6 +25,8 @@ function clickTheGreetButton() {
   if (checkedRadioBtn) {
     var language = checkedRadioBtn.value;
   }
+
+
   var Name = NameElement.value;
   var name = Name.toUpperCase()
 
@@ -33,17 +36,18 @@ function clickTheGreetButton() {
 
 
     if (Names[name] === undefined) {
-
       Names[name] = 0;
       localStorage.setItem("myNames", JSON.stringify(Names));
-
     }
-// greetingElement.innerHTML = name;
-// regNumcounter.innerHTML = Object.entries(Names).length;
   }
-  regNumcounter.innerHTML = Object.entries(Names).length;
-
-
+  var keys = Object.keys(Names);
+  console.log(keys);
 }
 
 addBtnElement.addEventListener('click', clickTheGreetButton);
+
+resetBtnElement.addEventListener('click', function () {
+  localStorage.clear();
+
+
+});
